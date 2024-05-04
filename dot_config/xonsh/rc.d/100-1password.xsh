@@ -1,4 +1,4 @@
-print(f"[{__file__}] BEGIN")
+ldebug(f"[{__file__}] BEGIN")
 
 
 @aliases.register("op.signin")
@@ -15,7 +15,7 @@ def _op_signin():
     for envs in results:
         if envs.startswith("export "):
            env_strs =  [env.strip().strip('"') for env in envs.removeprefix("export ").split("=")]
-           print(f"Setting {env_strs[0]}")
+           ldebug(f"Setting {env_strs[0]}")
            ${env_strs[0]} = env_strs[1]
 
 def _op_ensure_signedin():
@@ -63,4 +63,4 @@ op.ensure_signedin () {
 # load vi mode
 # source ~/.config/xonsh/src/prompt_vi_mode.xsh
 
-print(f"[{__file__}] END")
+ldebug(f"[{__file__}] END")

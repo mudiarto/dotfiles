@@ -1,4 +1,4 @@
-print(f"[{__file__}] BEGIN")
+ldebug(f"[{__file__}] BEGIN")
 
 # from: https://github.com/xonsh/xontrib-abbrevs
 # install: xpip install xontribs-abbrevs
@@ -12,6 +12,7 @@ xontrib load z
 # install: xpip install xontrib-ssh-agent
 # xontrib load ssh_agent
 
-print(f"[{__file__}] END")
+ldebug(f"[{__file__}] END")
+
 
 

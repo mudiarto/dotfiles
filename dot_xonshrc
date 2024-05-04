@@ -8,5 +8,9 @@
 # refs:
 # - https://xon.sh/xonshrc.html
 #
-# however for now I decided to just put it in this one file to make things easier to find & edit
+# links:
+# - https://github.com/anki-code/xonsh-cheatsheet
 
+# set XONSH_DEBUG to 1 or 2 if you want to debug shell
+# see: https://xon.sh/envvars.html#xonsh-debug
+$XONSH_DEBUG=0

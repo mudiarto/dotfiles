@@ -1,7 +1,25 @@
-print(f"[{__file__}] BEGIN")
+#
+# initial setup
+#
+
+import logging
+logger = logging.getLogger('xonsh')
+
+def ldebug(*args, **kwargs):
+  logger.debug(*args, **kwargs)
+
+def linfo(*args, **kwargs):
+  logger.info(*args, **kwargs)
+
+def lwarning(*args, **kwargs):
+  logger.warning(*args, **kwargs)
+
+
+$UPDATE_OS_ENVIRON=True
+
+ldebug(f"[{__file__}] BEGIN")
 
 # NOTE: this should be temporary place for xonsh scripts - once it work, put it in the rc.d for better organization
-
 
 
 # https://github.com/anki-code/xontrib-rc-awesome/blob/main/xontrib/rc_awesome.xsh
@@ -24,4 +42,4 @@ def _alias_xc():
 
 
 
-print(f"[{__file__}] END")
+ldebug(f"[{__file__}] END")

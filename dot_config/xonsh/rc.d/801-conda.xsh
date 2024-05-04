@@ -1,4 +1,4 @@
-print(f"[{__file__}] BEGIN")
+ldebug(f"[{__file__}] BEGIN")
 
 ####################################################################################
 # conda
@@ -23,4 +23,4 @@ if !(test -f "/home/kusno/miniforge3/bin/conda"):
     del _sys, _mod, _ModuleType
 # <<< conda initialize <<<
 
-print(f"[{__file__}] END")
+ldebug(f"[{__file__}] END")
