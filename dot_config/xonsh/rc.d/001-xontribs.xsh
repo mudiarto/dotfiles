@@ -5,6 +5,7 @@ ldebug(f"[{__file__}] BEGIN")
 xontrib load abbrevs
 
 # from: https://github.com/AstraLuma/xontrib-z
+# forked to: https://github.com/mudiarto/xontrib-z
 xontrib load z
 
 # NOTE: not working in my case
@@ -13,6 +14,3 @@ xontrib load z
 # xontrib load ssh_agent
 
 ldebug(f"[{__file__}] END")
-
-
-

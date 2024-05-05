@@ -181,7 +181,8 @@ keybinds {
         bind "Ctrl h" { SwitchToMode "Move"; }
     }
     shared_except "tmux" "locked" {
-        bind "Ctrl b" { SwitchToMode "Tmux"; }
+        // bind "Ctrl b" { SwitchToMode "Tmux"; }
+        bind "F12" { SwitchToMode "Tmux"; }
     }
 }
 
@@ -254,7 +255,7 @@ plugins {
 // defaults to the scrollback size. If this number is higher than the scrollback size, it will
 // also default to the scrollback size. This does nothing if `serialize_pane_viewport` is not true.
 //
-// scrollback_lines_to_serialize 10000
+scrollback_lines_to_serialize 100000
 
 // Define color themes for Zellij
 // For more examples, see: https://github.com/zellij-org/zellij/tree/main/example/themes
@@ -280,6 +281,7 @@ plugins {
 // Default: default
 //
 // theme "default"
+theme "solarized-light"
 
 // The name of the default layout to load on startup
 // Default: "default"
@@ -363,3 +365,9 @@ plugins {
 // Default: false
 //
 // disable_session_metadata true
+
+// compact layout - without lines on the left/right
+// see: https://zellij.dev/documentation/faq#the-ui-takes-up-too-much-space-what-can-i-do-about-it
+pane_frames false
+
+

@@ -61,6 +61,11 @@ aliases.update({
   'tml': 'tmux ls',
   'tmj': 'tmux attach -d -t',
 
+  #
+  # zellij
+  #
+  'zl': 'zellij',
+
 })
 
 

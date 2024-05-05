@@ -14,3 +14,21 @@
 # set XONSH_DEBUG to 1 or 2 if you want to debug shell
 # see: https://xon.sh/envvars.html#xonsh-debug
 $XONSH_DEBUG=0
+
+# show traceback for notification on exception
+# see: https://xon.sh/envvars.html#xonsh-show-traceback
+$XONSH_SHOW_TRACEBACK=True
+
+#
+# set both of these if you get this error in xonsh:
+# > Pyperclip could not find a copy/paste mechanism for your system.
+# > Please see https://pyperclip.readthedocs.io/en/latest/introduction.html#not-implemented-error for how to fix this.
+#
+
+# disable use system clipboard - since it cause issue when I ssh to this remotely
+# see: https://xon.sh/envvars.html#xonsh-use-system-clipboard
+$XONSH_USE_SYSTEM_CLIPBOARD=False
+
+# disable copy on delete as well, related to clipboard issue
+# see: https://xon.sh/envvars.html#xonsh-copy-on-delete
+$XONSH_COPY_ON_DELETE=False
