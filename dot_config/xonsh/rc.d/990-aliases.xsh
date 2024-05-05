@@ -55,6 +55,11 @@ aliases.update({
   'nix.search': 'nix search nixpkgs',
 
   #
+  # mise
+  #
+  'ms': 'mise',
+
+  #
   # tmux
   #
   'tmn': 'tmux new -A -s',
