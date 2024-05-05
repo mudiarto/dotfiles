@@ -1,0 +1,802 @@
+# set your user tokens as environment variables, such as ~/.secrets
+[alias]
+
+  #################################################################################
+  #
+  # init 
+  # 
+  #################################################################################
+  it = '!git init && git commit -m “root” --allow-empty'
+
+  #################################################################################
+  #
+  # add
+  # 
+  #################################################################################
+  a = add                           # add
+  am = add -u                       # add modified files only, no untracked
+  chunkyadd = add --patch           # stage commits chunk by chunk
+  add-patch = add --patch
+
+  #################################################################################
+  #
+  # assume & unassume
+  #
+  #################################################################################
+
+  #assume aliases
+  assume   = update-index --assume-unchanged
+  unassume = update-index --no-assume-unchanged
+  assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+
+  #unassume all the assumed files
+  unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+  assumeall = "!git st -s | awk {'print $2'} | xargs git assume"
+
+
+  #################################################################################
+  #
+  # backup
+  # 
+  #################################################################################
+
+  # backup => see https://github.com/kevinold/dotfiles/blob/master/gitconfig
+  bak = !git branch `git br | grep '*' | sed -e 's/* /BAK_/'`  # create backup branch for current branch
+
+  # backup-untracked -> see: https://stackoverflow.com/questions/5205305/how-to-make-quick-backup-of-untracked-files-which-i-want-to-delete-by-git-clean
+  bak-untracked = "!git ls-files --others --exclude-standard -z | xargs -0 tar rvf ./backup-untracked.tar"
+
+
+  #################################################################################
+  #
+  # blame, history, etc
+  #
+  #################################################################################
+
+  # use it like this git sieve 'daily_total' app/models/expense_line.rb
+  # also see git-spelunking: http://mislav.uniqpath.com/2014/02/hidden-documentation/
+  sieve = log -p -S
+
+
+  # git-spelunk
+  # 2.2.3 works
+  sp = "!f() { RBENV_VERSION=2.3.1 git-spelunk \"$@\" ; }; f"
+  #sp = "!f() { RBENV_VERSION=2.3.1; FILE=$1; echo -f $FILE; if [ -f "$FILE" ]; then git-spelunk \"$FILE\"; else echo \"file $FILE not found.\"; fi ; }; f"
+  #sp = "!f() { RBENV_VERSION=2.3.1; if [ -f \"$@\" ]; then git-spelunk \"$@\"; else echo \"file $1 not found.\"; fi ; }; f"
+  #sp = "!f() { RBENV_VERSION=2.3.1; if [ -f "$@" ]; then git-spelunk \"$@\"; else echo \"file $1 not found.\"; fi ; }; f"
+  # sp = "!f() { RBENV_VERSION=2.3.1; if [ -f $@ ] ; then git-spelunk \"$@\"; else echo \"file $@ not found.\"; fi ; }; f"
+  #sp = !RBENV_VERSION=2.2.3 git-spelunk
+
+  #sp = "!f() { FILE=$1; if [ -f "\""$FILE"\"" ]; then RBENV_VERSION=2.2.3; git-spelunk \"$FILE\"; else echo \"file $FILE not found.\"; fi ; }; f"
+  #sp = "!CUR=$(pwd); f() { CUR=$(pwd); echo $CUR$@; if [ -e "$CUR$@" ]; then echo "YES"; else echo "NO" ; fi ; }; f"
+
+
+  # code review tool:  https://github.com/google/git-appraise
+	appraise = !/Users/kusno/Projects/gocode/bin/git-appraise
+
+  #################################################################################
+  #
+  # branch
+  #
+  #################################################################################
+  b = branch -v                                 # branch (verbose)
+
+  current-branch = rev-parse --abbrev-ref HEAD  # current branch
+  branch-delete-remote = branch -dr             # delete 'local-remote-branch'
+
+  branch-delete-merged-master = "!git branch --merged master | grep -v 'master' | xargs git branch -d"
+
+  #via http://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
+  recent-branches = !git for-each-ref --count=15 --sort=-committerdate refs/heads/ --format='%(refname:short)'
+
+  #rename branch tree to done-
+  done = "!f() { git branch | grep "$1" | cut -c 3- | grep -v done | xargs -I{} git branch -m {} done-{}; }; f"
+
+
+  #################################################################################
+  #
+  # clean
+  #
+  #################################################################################
+
+  # use -n for dry run it
+  # pristine will delete all, including directories, .idea, etc
+  pristine = clean -d -x 
+
+  # cleanall will just delete ignored files
+  cleanall = clean -X
+
+  # This commits everything in my working directory
+  # and then does a hard reset to remove that commit
+  #
+  # The nice thing is, the commit is still there, but it's just unreachable.
+  # Unreachable commits are a bit inconvenient to restore,
+  # but at least they are still there.
+  # You can run the git reflog command and find the SHA
+  # of the commit if you realize later that you made
+  # a mistake with the reset. The commit message will be "WIPE SAVEPOINT" in this case.
+  wipe = !git add -A &amp;&amp; git commit -qm 'WIPE SAVEPOINT' &amp;&amp; git reset HEAD~1 --hard
+
+
+
+  #################################################################################
+  #
+  # commit
+  # 
+  #################################################################################
+  c = commit -m                     # commit with message
+  ca = commit -am                   # commit all with message
+  #ci = commit                      # commit
+  ci = !git gui citool              # use git gui to commit
+  amend = commit --amend            # ammend your last commit
+  commit = commit --verbose
+  amendit = commit --amend --no-edit
+  commend = commit --amend --no-edit
+
+  #
+
+  # inject -> https://news.ycombinator.com/item?id=9705690
+  # It is similar to 'git commit --amend', but it allows you to 'inject' your changes
+  # into commits further back in history (using 'rebase').
+  # instead of popping, fix, and put all back
+  inject = "!f() { set -e; HASH=`git show $1 --pretty=format:\"%H\" -q`; shift; git commit -m \"fixup! $HASH\" $*; [ -n \"$(git diff-files)\" ] && git stash && DIRTY=1; git rebase $HASH^^ -i --autosquash; [ -n \"$DIRTY\" ] && git stash pop;}; f"
+
+
+
+  #################################################################################
+  #
+  # config
+  #
+  #################################################################################
+  ec = !vi ~/.gitconfig
+
+
+  #################################################################################
+  #
+  # checkout
+  # 
+  #################################################################################
+  co = checkout                     # checkout
+  cob = checkout -b                 # checkout
+  nb = checkout -b                  # create and switch to a new branch (mnemonic: "git new branch branchname...")
+  # checkout and track remote : example : git track xxx
+  track = checkout -t              # checkout and track remote : example : git track origin/xxx
+  # track = checkout -t -b             # checkout and track remote : example : git track origin/xxx
+  #track = !git branch --track '$1' 'origin/$1' && git co '$1' 
+  #track = !git branch --track $1 origin/$1
+  #track = !git branch --track "$1" && git co '$1'
+  #
+
+  #################################################################################
+  #
+  # cherry-pick
+  #
+  #################################################################################
+  cp = cherry-pick -x               # grab a change from a branchD
+  cpc = cherry-pick --continue      # continue
+
+
+  #################################################################################
+  #
+  # diff
+  #
+  #################################################################################
+  d = diff                          # diff unstaged changes
+  dc = diff --cached                # diff staged changes
+  last = diff HEAD^                 # diff last committed change
+  bdiff = git cherry -v             # diff 2 branches, from:https://stackoverflow.com/questions/7566416/different-commits-between-two-branches
+
+  # recommended by: https://difftastic.wilfred.me.uk/git.html#git-difftool
+  # useful to allow git uses different difftool
+  dft = difftool                    # difftool - see: https://git-scm.com/docs/git-difftool
+
+
+  #################################################################################
+  #
+  # editing
+  #
+  #################################################################################
+  # v = "!vi $(fzf)"
+  v = "!f() { fzf | xargs -I{} open '{}' ;  }; f"
+
+
+  #################################################################################
+  #
+  # github
+  #
+  #################################################################################
+  mention = "!RBENV_VERSION=git_tools ghi list --pulls --state open --mention mudiarto --sort created"
+  prl = "!RBENV_VERSION=git_tools ghi list --pulls --state open --creator mudiarto --sort created"
+  pra = "!RBENV_VERSION=git_tools ghi list --pulls --state open --sort created"
+  prs = "!RBENV_VERSION=git_tools ghi show"
+  prby = "!RBENV_VERSION=git_tools ghi list --pulls --state open --sort created --creator "
+
+  #
+  # new pull request
+  #
+
+  # use git prn coupa:011_release -h coupa:011_release_CD-xxx to force pull from coupa
+  prn = "!hub pull-request -b"
+  # cprn = "!f() { hub pull-request -F .github/PULL_REQUEST_TEMPLATE.md -b coupa:$1 -h coupa:$1_$2 ; }; f"
+  cprn = "!f() { hub pull-request -b coupa:$1 -h coupa:$1_$2 ; }; f"
+
+
+  #
+  # checkout pull request locally
+  #
+
+  # https://gist.github.com/gnarf/5406589
+  pr  = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+  pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+
+
+  #################################################################################
+  #
+  # gpg
+  #
+  #################################################################################
+  gpg = log --show-signature
+
+
+  #################################################################################
+  #
+  # grep
+  #
+  #################################################################################
+  grep = grep -Ii
+  gr = grep -Ii
+  #grep from root folder
+  gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+
+  #grep on filename
+  f = "!git ls-files | grep -i"
+
+
+
+  #################################################################################
+  #
+  # help
+  #
+  #################################################################################
+  commands = help -a
+
+
+  #################################################################################
+  #
+  # ignore
+  #
+  #################################################################################
+  ignore-gen = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+  ignored = ls-files -o -i --exclude-standard
+
+
+  #################################################################################
+  #
+  # legit
+  #
+  #################################################################################
+  switch = !legit switch \"$@\"
+  branches = !legit branches
+  sprout = !legit sprout \"$@\"
+  unpublish = !legit unpublish \"$@\"
+  harvest = !legit harvest \"$@\"
+  sync = !legit sync \"$@\"
+  publish = !legit publish \"$@\"
+  graft = !legit graft \"$@\"
+
+
+
+
+  #################################################################################
+  #
+  # log
+  # 
+  #################################################################################
+
+  # log
+  l = log --graph --date=short
+
+  log-changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
+  log-short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
+  log-simple = log --pretty=format:\" * %s\"
+  log-shortnocolor = log --pretty=format:\"%h %cr %cn %s\"
+
+
+  # log from
+  log-from = "!f() { git log $1..HEAD; }; f"
+
+  #
+  # show difference in branch
+  # see: https://stackoverflow.com/questions/7548926/git-and-the-branch-x-is-not-fully-merged-error#7549118
+  bdiff = !git log --graph --left-right --cherry-pick --oneline $1...$2
+
+  # from: http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
+  # ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+  lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+  ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+
+  log-bare = log --pretty=format:"%h"
+
+  filelog = log -u    # show history of file with diff
+  fl = log -u
+  dl = "!git ll -1"  #Show modified files in last commit:
+  dlc = diff --cached HEAD^ # show diff last commit
+  la = "!git config -l | grep alias | cut -c 7- | sort"  # list aliases
+
+  # log grep: see http://gitster.livejournal.com/30195.html
+  # use like this:
+  #    git lgrep JZ-6672
+  #    git lgrep JZ-6672 --author=mudiarto
+  lgrep = "!f() { git log --all-match --grep=$@; }; f"
+
+
+
+  #################################################################################
+  #
+  # merge
+  #
+  #################################################################################
+
+  mt = mergetool               # fire up the merge tool
+
+  conflict = diff --name-only --diff-filter=U
+  conflicts = diff --name-only --diff-filter=U
+  conflicted = "!vim `git diff --name-only --diff-filter=U`"
+
+  edit-conflict = "!f() { vim `git diff --name-only --diff-filter=U`; }; f"
+  add-conflict = "!git add `git diff --name-only --diff-filter=U`"
+
+  edit-modified = "!f() { vim `git diff --name-only --diff-filter=M $1`; }; f"
+
+
+  #################################################################################
+  #
+  # patch
+  #
+  #################################################################################
+
+  # create last commit as email patch : git format-patch -M -1
+  # use it like this -> git lpatch > yourfix.patch
+  # to apply patch : git am < yourfix.patch
+  # to sign a patch : git am --signoff  < yourfix.patch
+  lpatch = !git format-patch -M -1 --stdout
+  apatch = am
+
+
+  #################################################################################
+  #
+  # pull
+  #
+  #################################################################################
+  pl = pull                         # pull
+
+  # git up -> see http://stackoverflow.com/questions/15316601/why-is-git-pull-considered-harmful
+  # use git up xxx to update from repo xxx. If your remote is xxx, then it will update from remote also
+  # use git up xxx xxx/master to pull & merge from xxx/master - only needed if your remote is not xxx
+  # up = "!f() { git remote update $1 -p; git merge --ff-only @{u} $2; }; f"
+  up = "!f() { git remote update $1 -p; git merge --ff-only @{u} $2; }; f"
+  # use git ff to move forward
+  ff = "!f() { git merge --ff-only @{u} ; }; f"
+
+  # pull upstream & merge
+  pu = !"git fetch origin -v; git fetch upstream -v; git merge upstream/master"
+
+  # old version, not used anymore
+  ##up = "!git remote update origin -p; git merge --ff-only @{u}"
+  ##up = '!f() { git diff --name-status $1^ $1; }; f'
+  ##up = "!echo git remote update origin -p 0 git merge --ff-only @{u}"
+
+
+  # git force pull - ignore local - exeperiment
+  # git forcepull origin branch
+  # see : http://stackoverflow.com/questions/1125968/force-git-to-overwrite-local-files-on-pull
+  # WARNING: will overwrite your local !!!
+  forcepull = "!f() { git  remote update $1; git reset --hard $1/$2  }; f"
+
+  #
+  # ghq pull
+  #
+
+  # pull via ghq
+  # ghq up all branches
+  # ghup = "!f() { ghq list -p | perl -nlpe 's[/Users/kusno/.ghq/github.com/(.*)][$1]' | xargs -n1 ghq get -u ; }; f"
+  #
+
+  #gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+  # change dir and git up and come back
+  upin = "!f() { A=$(pwd) && cd $1 && git up && cd $A ; }; f"
+
+  # update all repo in ghq
+  # ghup = "!f() { ghq list -p | xargs -n1 git upin ; }; f"
+  ghup = "!f() { echo 'use ghup command' ; }; f"
+  upl = "!f() { git remote update ghq -p; git merge --ff-only @{u} $2; }; f"
+  forceupl = "!f() { echo do this -; echo git remote update ghq -p; echo git reset --hard origin/yourbranch; }; f"
+
+
+  #################################################################################
+  #
+  # push
+  #
+  #################################################################################
+  ps = push                         # push
+
+  # set upstream
+  # use shell function to implement this
+  # set-origin = "!f() { echo git branch --track origin/`current_branch`; }; f"
+
+  please = 'push --force-with-lease'
+
+
+  #################################################################################
+  #
+  # rebase
+  #
+  #################################################################################
+  rb = rebase
+  rbc = rebase --continue            # continue rebase
+  rbs = rebase --skip                # skip rebase
+  rbi = rebase --interactive         # interactive rebase - reorder, etc
+
+
+  #################################################################################
+  #
+  # remote
+  #
+  #################################################################################
+  r = remote -v                     # show remotes (verbose)
+
+
+  #################################################################################
+  #
+  # reset
+  #
+  #################################################################################
+  unstage = reset HEAD              # remove files from index (tracking)
+  uncommit = reset --soft HEAD^     # go back before last commit, with files in uncommitted state
+  filelog = log -u                  # show changes to a file
+  reset-origin = "!f() { git reset --hard @{u}; };f"
+
+  #################################################################################
+  #
+  # undo
+  # from: http://megakemp.com/2016/08/25/git-undo/
+  #
+  #################################################################################
+  undo = "!f() {git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}; };f"
+
+
+  #################################################################################
+  #
+  # selection utilities
+  #
+  #################################################################################
+
+  # show status / modified files
+  # remove the first 2 chars with sed
+  #sel-s = "!f() { git status \"$@\" --porcelain | peco | sed 's/^..//'; }; f"
+  sel-s = "!f() { git status \"$@\" --porcelain | fzf | sed 's/^..//'; }; f"
+
+  # show git branch with selection
+  # remove the first 2 chars with sed
+  # sel-b = "!f() { git branch \"$@\" | peco | sed 's/^..//'; }; f"
+  sel-b = "!f() { git branch \"$@\" | fzf | sed 's/^..//'; }; f"
+
+  # recent-branches = !git for-each-ref --count=15 --sort=-committerdate refs/heads/ --format='%(refname:short)'
+  cos = "!f() { git recent-branches | fzf | xargs git co ; }; f"
+
+  # show local-remote branch
+  # sel-b-r = "!f() { git branch -r \"$@\" | peco | sed 's/^..//'; }; f"
+  sel-b-r = "!f() { git branch -r \"$@\" | fzf | sed 's/^..//'; }; f"
+
+  # add / diff with selection
+  add-sel = "!f() { git add $(git sel-s ); }; f"
+  diff-sel = "!f() { git diff \"$@\" $(git sel-s ); }; f"
+
+  # branch delete with selection
+  b-d-sel = "!f() { git branch -d \"$@\" $(git sel-b ); }; f"
+  b-D-sel = "!f() { git branch -D \"$@\" $(git sel-b ); }; f"
+
+  b-d-r-sel = "!f() { git branch -dr \"$@\" $(git sel-b-r ); }; f"
+
+
+  rm-untracked = "!f() { git status -u | fzf -m | xargs -I{} rm {} ;  }; f"
+
+  # delete remote branches with format coupa/pr/*, 10 at a time
+  # git branch -l -r | grep 'coupa/pr' | xargs -n 10 git branch -dr
+
+
+  #################################################################################
+  #
+  # show
+  #
+  #################################################################################
+  sh = show --pretty=full           # show pretty
+  #  http://stackoverflow.com/questions/424071/list-all-the-files-for-a-commit-in-git
+  show-files =  diff-tree --no-commit-id --name-only -r 
+  show-changed-files =  diff --no-commit-id --name-only -r 
+
+  shl =  diff-tree --no-commit-id --name-only -r 
+  ls =  diff-tree --no-commit-id --name-only -r
+
+
+  #################################################################################
+  #
+  # stacked git
+  #
+  #################################################################################
+
+  st = !stg
+  stl = !stg series
+  stup = "!f() { stg pop --all; git up; stg push --all; }; f"
+
+
+  #################################################################################
+  #
+  # stash
+  #
+  #################################################################################
+  ss = stash                        # stash changes
+  sl = stash list                   # list stashes
+  sa = stash apply                  # apply stash (restore changes)
+  sd = stash drop                   # drop stashes (destory changes)
+
+  # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+  snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+  snapshots = !git stash list --grep snapshot
+
+
+  #################################################################################
+  #
+  # status
+  #
+  #################################################################################
+  s = status                        # status
+  #st = status                       # status
+  #stat = status                     # status
+
+
+  #################################################################################
+  #
+  # tag
+  #
+  #################################################################################
+  t = tag -n                        # show tags with <n> lines of each tag message
+
+  tagcontain = tag --contains       # find all tag that contain a specific commit : https://stackoverflow.com/questions/1474115/find-tag-information-for-a-given-commit
+  tagcontain1 = describe --contains  # find first tag that contain a specific commit : https://stackoverflow.com/questions/1474115/find-tag-information-for-a-given-commit
+
+  # tags: from http://www.everythingcli.org/git-like-a-pro/
+  tags = "!git for-each-ref --sort=taggerdate --format '%(tag)%09%(taggerdate:raw)%09%(*authorname)%09%(*subject)' refs/tags | awk '{print $1\"\t\t\"strftime(\"%F  %H:%M\", $2)\"\t\"$4\" \"$5\"  \t\t\"$6\" \"$7\" \"$8\" \"$9\" \"$10}'"
+
+
+  #################################################################################
+  #
+  # coupa
+  #
+  #################################################################################
+
+  # coupafy_gemfile = "!sed -i 's/git@github.com\:coupa/github-coupa\:coupa/g'"
+  # coupafy_package = "!sed -i 's/git@github.com\/coupa/github-coupa\/coupa/g'"
+  #
+
+  #################################################################################
+  #
+  # cleanup
+  #
+  #################################################################################
+
+  # from https://stackoverflow.com/questions/7726949/remove-tracking-branches-no-longer-on-remote
+  branch-gone="!echo 'list of branch that has been gone on remote:' &&  git branch -vv | awk '/: gone]/{print $1}' "
+  branch-gone-delete="!echo 'delete branches that has been gone on remote:' && git remote prune origin &&  git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -d"
+
+
+  show-perm="!f(){ git diff -p | grep -E '^(diff|old mode|new mode)'; }; f"
+  fix-perm="!f(){ git diff -p | grep -E '^(diff|old mode|new mode)' | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' | git apply; }; f"
+
+[apply]
+  # Warn about whitespace issues defined in core.whitespace
+  whitespace = warn
+  # whitespace = nowarn
+
+[advice]
+  statusHints = false
+
+[diff]
+  # Git diff will use (i)ndex, (w)ork tree, (c)ommit and (o)bject
+  # instead of a/b/c/d as prefixes for patches
+  mnemonicprefix = true
+  algorithm = patience
+
+  # recommended by difftastic
+  # commented for now - we'll use default diff & diff-so-fancy
+  # tool = difftastic
+
+[branch]
+  autosetupmerge = true
+
+[color]
+  ui = true
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  #meta = yellow bold
+  #frag = magenta bold
+  #old = red
+  #new = green
+  meta = yellow bold
+  frag = magenta bold
+  old = red
+  new = green
+
+
+[color "diff-highlight"]
+  #oldNormal = red bold inverse 
+  #oldHighlight = red bold inverse 52
+  #newNormal = green bold reverse 
+  #newHighlight = green bold reverse 22
+
+  oldNormal = magenta inverse 
+  oldHighlight = magenta inverse 52
+  newNormal = blue reverse
+  newHighlight = blue reverse 22
+
+  # from diff-so-fancy
+  #git config --global color.ui true
+
+  # git config --global color.diff-highlight.oldNormal    "red bold"
+  # git config --global color.diff-highlight.oldHighlight "red bold 52"
+  # git config --global color.diff-highlight.newNormal    "green bold"
+  # git config --global color.diff-highlight.newHighlight "green bold 22"
+  #
+  # git config --global color.diff.meta       "11"
+  # git config --global color.diff.frag       "magenta bold"
+  # git config --global color.diff.func       "146 bold"
+  # git config --global color.diff.commit     "yellow bold"
+  # git config --global color.diff.old        "red bold"
+  # git config --global color.diff.new        "green bold"
+  # git config --global color.diff.whitespace "red reverse"
+
+
+[commit]
+  # template = ~/.yadr/git/gitmessage.txt
+
+[core]
+  autocrlf = false
+  # editor = /usr/local/bin/mvim -v
+  excludesfile = ~/.gitignore
+
+  # Check if converting CRLF is reversible
+  # and abort if not
+  safecrlf = true
+
+  # Better git diff view
+  pager = less -x1,5
+  # this require https://github.com/so-fancy/diff-so-fancy
+  # pager = diff-highlight | diff-so-fancy | less --tabs=1,5 -R
+  # pager = diff-so-fancy | less --tabs=1,5 -RFX
+  # pager = diff-so-fancy | less --tabs= -RFX
+
+  # whitespace fix
+  #
+  # trailing-space: treats trailing whitespaces at the end of the line
+  # space-before-tab: treats a space character that appears immediately before a tab character in the initial indent part of the line as an error
+  whitespace = blank-at-eol,blank-at-eof,space-before-tab,trailing-space
+
+  ignorecase = false
+
+[difftool]
+  prompt = false
+
+[difftool "sourcetree"]
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path =
+
+[difftool "difftastic"]
+  cmd = difft \"$LOCAL\" \"$REMOTE\"
+
+
+[filter "media"]
+  clean = git-media-clean %f
+  smudge = git-media-smudge %f
+
+# hawser is old name for git lfs (large file system)
+[filter "hawser"]
+  clean = git hawser clean %f
+  smudge = git hawser smudge %f
+  required = true
+
+[filter "lfs"]
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
+
+[format]
+  pretty = format:%C(blue)%ad%Creset %C(yellow)%h%C(green)%d%Creset %C(blue)%s %C(magenta) [%an]%Creset
+
+#[ghi]
+#  token = !security find-internet-password -a mudiarto -s github.com -l 'ghi token' -w
+
+#[github]
+# user = <your user>
+# token = <secret token>
+
+#[heroku]
+#  account = <heroku-account>
+
+# [hub]
+#   user = <your user>
+#   token = <secret token>
+#   protocol = git
+
+[include]
+  path = .gitconfig.user
+
+[init]
+  # templatedir = ~/.git_template
+
+[merge]
+  summary = true
+  verbosity = 1
+  #tool = mvimdiff
+  # tool = p4merge
+
+[mergetool]
+  prompt = false
+
+[mergetool "mvimdiff"]
+  cmd="mvim -c 'Gdiff' $MERGED"     # use fugitive.vim for 3-way merge
+  keepbackup=false
+
+#[mergetool "p4merge"]
+#  #cmd = /Applications/p4merge.app/Contents/MacOS/p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+#  cmd = /opt/homebrew-cask/Caskroom/p4merge/2014.3-1007540/p4merge.app/Contents/MacOS/p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+#  keepTemporaries = false
+#  trustExitCode = false
+#  keepBackup = false
+
+#[mergetool "sourcetree"]
+# cmd = /Users/kusno/Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+#  trustExitCode = true
+
+[push]
+  # see: http://stackoverflow.com/questions/948354/default-behavior-of-git-push-without-a-branch-specified
+  # 'git push' will push the current branch to its tracking branch
+  # the usual default is to push all branches
+  # default = upstream
+  # (new in Git 1.7.11) like upstream, but refuses to push if the upstream branch's name is different from the local one
+  default = simple
+
+[rebase]
+  # automatically stash & restore during rebase
+  autostash = true
+  # automatically squas commit made with squash! & fixup! 
+  autosquash = true
+
+[rerere]
+  # Remember my merges
+  # http://gitfu.wordpress.com/2008/04/20/git-rerere-rereremember-what-you-did-last-time/
+  enabled = true
+
+[status]
+    submodulesummary = 1
+
+# [user]
+#   name = Kusno Mudiarto
+#   email = mudiarto@gmail.com
+
+[interactive]
+  singleKey = true
+  # diffFilter = "diff-so-fancy --patch"
+
+# coupa stuff
+[url "github-coupa:coupa"]
+    insteadOf = https://github.com/coupa
+
+[url "github-coupa:mudiarto-coupa"]
+    insteadOf = https://github.com/mudiarto-coupa

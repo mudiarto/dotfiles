@@ -1,0 +1,118 @@
+# my temporary folder
+# the 'x' files .. copied from a thread somewhere in HN
+*/.x/*
+.x/*
+.x/
+
+# general
+.DS_Store
+*.sw[nop]
+.bundle
+.byebug_history
+.env
+db/*.sqlite3
+log/*.log
+*.log
+
+rerun.txt
+tmp/**/*
+!tmp/cache/.keep
+*.pyc
+
+# ctags
+tags
+!tags/
+gems.tags
+.tags
+
+
+# python
+.pytest_cache
+.cache
+# for virtualenv
+*-env/
+venv/
+.venv/
+pyenv/
+.ipynb_checkpoints/
+
+
+# asdf
+.tool-versions
+
+# vagrant
+.vagrant
+
+# coupa
+*.bak
+*.old
+*.tmp
+passenger.*
+config/elasticsearch.yml
+
+.starscope.db
+
+# patches
+*.patch
+*.patches
+.patches/
+
+
+# intellij
+*.idea
+*.iml
+
+# vscode
+.vscode/*
+
+# stencil framework
+.stencil
+.stencil.*
+
+# php - composer
+composer.phar
+
+# asdf
+.tool-versions
+
+# lefthook
+lefthook.yml
+
+# coupa temporary
+expense_violation_faker.rb
+app/controllers/application_controller.rb
+Procfile.all
+config/localhost.1.key
+
+# coupa - callback tracer
+config/initializers/001-callback_tracer.rb
+lib/tasks/callback_analyzer.rake
+
+# don't automatically add editor config, it has to be forced
+.editorconfig
+
+# development files - you'd need to force add them
+Makefile
+Makefile.dev
+*.env
+
+*-dev.*
+*.dev
+
+# rails
+routes.txt
+_#*
+Passengerfile.json
+
+# zeus
+custom_plan.rb
+zeus.json
+
+# solargraph
+.solargraph.yml
+
+# charlatan
+charlatan.ods
+
+# compressed file
+*.gz
