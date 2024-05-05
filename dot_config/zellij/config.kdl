@@ -1,3 +1,15 @@
+//
+// kusno's note (20240504)
+// 
+// I gave up using zellij right now because of couple things:
+// - I have hard time copy/paste from mac (using iterm2) when ssh to remote using zellij
+// - My tmux is well setup - I am having problem adjusting to zellij
+// - I tried with solarized-light theme, but it is not that good.
+// Maybe I'll try it again in the future, but for now, I'll leave the config as is
+//
+
+
+
 // If you'd like to override the default keybindings completely, be sure to change "keybinds" to "keybinds clear-defaults=true"
 keybinds {
     normal {
