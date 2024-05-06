@@ -1,0 +1,9 @@
+# minimalist zshrc 
+#
+# use zsh as startup shell since couple apps (mutagen, jetbrains gateway) have issue connecting using xonsh shell
+#
+
+
+# add xonsh path
+export PATH=/home/kusno/.local/xonsh-env/xbin/:$PATH
+
