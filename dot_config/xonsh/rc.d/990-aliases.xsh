@@ -57,7 +57,7 @@ aliases.update({
   #
   # mise
   #
-  'ms': 'mise',
+  # 'ms': 'mise',
 
   #
   # tmux
