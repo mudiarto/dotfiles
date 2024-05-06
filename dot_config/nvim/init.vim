@@ -1,4 +1,4 @@
-echo "Using https://gitub.com/mudiarto/dotvim config in " . expand('%:p:h')
+echo "Using https://gitub.com/mudiarto/dotfiles config in " . expand('%:p:h')
 
 "
 " using vim-plug 
@@ -11,6 +11,11 @@ echo "Using https://gitub.com/mudiarto/dotvim config in " . expand('%:p:h')
 " then run nvim
 "  :PlugInstall
 "
+"
+
+"
+" NOTE: I collected these over the year, don't remember a lot of it anymore - will try to document it as I go
+"       I probably want to change it to lua as well
 "
 
 " set config home directory 
@@ -294,6 +299,11 @@ Plug 'flazz/vim-colorschemes'
 
 " support editor config
 Plug 'editorconfig/editorconfig-vim'
+
+" github-copilot
+Plug 'github/copilot.vim'
+
+
 
 " unused
 " not used: Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoUpdateBinaries' }
