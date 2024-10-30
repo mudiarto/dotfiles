@@ -1,0 +1,7 @@
+channels:
+  - pytorch
+  - nvidia
+  - fastai
+  - conda-forge
+  - nodefaults
+channel_priority: strict

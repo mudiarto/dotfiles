@@ -4,8 +4,8 @@
 [tools]
 # global tool versions go here
 # you can set these with `mise use -g`
-node = 'lts'
-python = ['3.10', '3.11']
+# node = 'lts'
+# python = ['3.10', '3.11']
 
 [settings]
 # plugins can read the versions files used by other version managers (if enabled by the plugin)
@@ -38,8 +38,8 @@ task_output = "prefix" # see Tasks Runner for more information
 paranoid = false       # see MISE_PARANOID
 
 # shorthands_file = '~/.config/mise/shorthands.toml' # path to the shorthands file, see `MISE_SHORTHANDS_FILE`
-disable_default_shorthands = false # disable the default shorthands, see `MISE_DISABLE_DEFAULT_SHORTHANDS`
-disable_tools = ['node']           # disable specific tools, generally used to turn off core tools
+# disable_default_shorthands = false # disable the default shorthands, see `MISE_DISABLE_DEFAULT_SHORTHANDS`
+# disable_tools = ['node']           # disable specific tools, generally used to turn off core tools
 
 env_file = '.env' # load env vars from a dotenv file, see `MISE_ENV_FILE`
 
