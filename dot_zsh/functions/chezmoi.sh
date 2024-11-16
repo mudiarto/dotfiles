@@ -1,12 +1,17 @@
+#! /usr/bin/env bash
 # chezmoi aliases & utils
 
 # based from: https://github.com/mass8326/zsh-chezmoi
 
 # Ensure chezmoi is available
-[[ $+commands[chezmoi] ]] || return 0
+if ! command -v chezmoi &> /dev/null; then
+  return 0
+fi
 
 # Completion
-source <(chezmoi completion zsh)
+# source <(chezmoi completion zsh)
+eval "$(chezmoi completion zsh)"
+
 
 # Status
 alias cm="chezmoi"

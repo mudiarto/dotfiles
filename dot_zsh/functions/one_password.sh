@@ -1,7 +1,8 @@
+#! /usr/bin/env bash
 # one password function
 
 function op.signin() {
-    eval $(op signin)
+    eval "$(op signin)"
 }
 
 function op.ensure_signedin() {
@@ -16,5 +17,5 @@ function ssh-add.load_keys() {
     op.ensure_signedin
     echo "loading specified keys from 1Password"
     # load all specified ssh-keys
-    ssh-add - <<< `op read "op://Keys/20221016_mudiarto_at_gmail_com/id_ed25519"`
+    ssh-add - <<< "$(op read 'op://Keys/20221016_mudiarto_at_gmail_com/id_ed25519')"
 }
