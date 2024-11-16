@@ -16,5 +16,3 @@ alias tmj='tmux attach -d -t'
 # ls
 alias tm-ls='tmux ls'
 alias tml='tmux ls'
-
-

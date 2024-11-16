@@ -3,7 +3,7 @@
 # NOTES:
 # - install xonsh using mamba: https://github.com/anki-code/xonsh-install
 #   so it has dependent environment outside of OS' python or any other python
-# 
+#
 # - from my testing, xonsh will load files from these location (in this order):
 # - ~/.xonshrc
 # - ~/.config/xonsh/rc.xsh

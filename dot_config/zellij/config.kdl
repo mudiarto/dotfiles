@@ -1,6 +1,6 @@
 //
 // kusno's note (20240504)
-// 
+//
 // I gave up using zellij right now because of couple things:
 // - I have hard time copy/paste from mac (using iterm2) when ssh to remote using zellij
 // - My tmux is well setup - I am having problem adjusting to zellij
@@ -381,5 +381,3 @@ theme "solarized-light"
 // compact layout - without lines on the left/right
 // see: https://zellij.dev/documentation/faq#the-ui-takes-up-too-much-space-what-can-i-do-about-it
 pane_frames false
-
-

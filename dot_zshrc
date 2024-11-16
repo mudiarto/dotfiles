@@ -81,7 +81,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Add wisely, as too many plugins slow down shell startup.
 # aliases - use 'als' to list alias
 # cp - use 'cpv' to cp using rsync
-# zoxide - use 'z' to jump to recent directory - using zoxide. $ nix profile install nixpkgs#zoxide 
+# zoxide - use 'z' to jump to recent directory - using zoxide. $ nix profile install nixpkgs#zoxide
 # others - command completion, extra aliases
 plugins=(aliases chezmoi common-aliases cp gh git ssh zoxide)
 
@@ -150,8 +150,11 @@ done
 
 # extra settings
 
+# add locl bin path
+export PATH=~/.local/bin:$PATH
+
 # add xonsh path - in case I want to use xonsh
-export PATH=/home/kusno/.local/xonsh-env/xbin/:$PATH
+export PATH=~/.local/xonsh-env/xbin/:$PATH
 
 # fzf - fuzzy finder
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -162,5 +165,3 @@ eval "$(atuin init zsh)"
 # enable vi mode
 # from: https://stackoverflow.com/a/58188295
 bindkey -v
-
-

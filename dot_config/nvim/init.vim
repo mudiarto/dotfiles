@@ -1,7 +1,7 @@
 echo "Using https://gitub.com/mudiarto/dotfiles config in " . expand('%:p:h')
 
 "
-" using vim-plug 
+" using vim-plug
 "
 " see: https://github.com/junegunn/vim-plug
 " neovim - linux installation:
@@ -18,7 +18,7 @@ echo "Using https://gitub.com/mudiarto/dotfiles config in " . expand('%:p:h')
 "       I probably want to change it to lua as well
 "
 
-" set config home directory 
+" set config home directory
 let g:dotvim_home=expand('%:p:h')
 
 " Leader
@@ -152,7 +152,7 @@ function! InsertTabWrapper()
 endfunction
 
 " key mapping
-" 
+"
 " kusno: most of them are commented, I'll uncomment it as needed later
 " inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 " inoremap <S-Tab> <c-n>
@@ -270,7 +270,7 @@ Plug 'preservim/nerdtree'
 " status bar for vim
 Plug 'vim-airline/vim-airline'
 
-" git tools 
+" git tools
 Plug 'tpope/vim-fugitive'
 
 " sensible vim settings
@@ -318,7 +318,7 @@ call plug#end()
 " NOTE: this maybe needed if we got issue with file indentation
 " see: https://github.com/junegunn/vim-plug/issues/379#issuecomment-191572379
 " # uncomment if needed
-" filetype indent off 
+" filetype indent off
 
 ""********************************************************************************
 " kusno local config
@@ -368,7 +368,7 @@ colorscheme peachpuff
 "autocmd BufWinEnter * NERDTreeMirror
 
 " Open NERDTree in new tabs and windows if no command line args set
-" autocmd VimEnter * if !argc() | NERDTree | endif 
+" autocmd VimEnter * if !argc() | NERDTree | endif
 " autocmd BufWinEnter * if !argc() | NERDTreeMirror | endif
 
 " NERDTree, Use F3 for toggle NERDTree

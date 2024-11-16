@@ -8,8 +8,14 @@
 
 ### installation notes
 
-
 Template dotfiles repository, managed with [chezmoi](https://chezmoi.io/).
+
+### other software that I use:
+
+- [nix](https://nixos.org/) - using determinate-nix installer
+- [oh-my-zsh](https://ohmyz.sh/)
+- pipx: `nix profile install nixpkgs#pipx`
+- tmux
 
 ## License
 

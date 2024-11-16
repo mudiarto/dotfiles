@@ -5,4 +5,3 @@ function mcd () {
   mkdir -v -p $1
   cd $1
 }
-

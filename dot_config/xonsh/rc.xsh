@@ -7,11 +7,11 @@ logger = logging.getLogger('xonsh')
 
 #
 # logging
-# 
+#
 # NOTE: big reason for logging is to allow mutagen access from my laptop to my desktop with xonsh as main shell
 # - apparently mutagen uses something like this: `ssh user@host uname -sm` and expect result like: "Linux x86_64"
 # - it work fine with zsh, even though I echo a lot of things during bootup, somehow it doesn't get returned to ssh
-# - however it failed with xonsh. Apparently everything that I printed got returned. Not sure if it is because 
+# - however it failed with xonsh. Apparently everything that I printed got returned. Not sure if it is because
 #   I am putting xonsh script on incorrect run level (e.g. interactive vs non-interactive), or something else.
 # - In any case, now I put everything using log which can be controlled using log level
 #

@@ -9,7 +9,7 @@ aliases['reload'] = 'source ~/.xonshrc'
 
 aliases.update({
 
-  # 
+  #
   # dir tools
   #
   '..': 'cd ..',
@@ -22,7 +22,7 @@ aliases.update({
 
   #
   # chezmoi
-  # 
+  #
   'cm': "chezmoi",
   'cme': "chezmoi edit --apply",
   'cmadd': "chezmoi add --follow",

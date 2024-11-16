@@ -33,4 +33,3 @@ alias cmg="chezmoi git"
 
 # helpers
 alias zshrc="chezmoi edit --apply ~/.zshrc && omz reload"
-

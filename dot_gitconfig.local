@@ -3,15 +3,15 @@
 
   #################################################################################
   #
-  # init 
-  # 
+  # init
+  #
   #################################################################################
   it = '!git init && git commit -m “root” --allow-empty'
 
   #################################################################################
   #
   # add
-  # 
+  #
   #################################################################################
   a = add                           # add
   am = add -u                       # add modified files only, no untracked
@@ -37,7 +37,7 @@
   #################################################################################
   #
   # backup
-  # 
+  #
   #################################################################################
 
   # backup => see https://github.com/kevinold/dotfiles/blob/master/gitconfig
@@ -101,7 +101,7 @@
 
   # use -n for dry run it
   # pristine will delete all, including directories, .idea, etc
-  pristine = clean -d -x 
+  pristine = clean -d -x
 
   # cleanall will just delete ignored files
   cleanall = clean -X
@@ -122,7 +122,7 @@
   #################################################################################
   #
   # commit
-  # 
+  #
   #################################################################################
   c = commit -m                     # commit with message
   ca = commit -am                   # commit all with message
@@ -154,7 +154,7 @@
   #################################################################################
   #
   # checkout
-  # 
+  #
   #################################################################################
   co = checkout                     # checkout
   cob = checkout -b                 # checkout
@@ -162,7 +162,7 @@
   # checkout and track remote : example : git track xxx
   track = checkout -t              # checkout and track remote : example : git track origin/xxx
   # track = checkout -t -b             # checkout and track remote : example : git track origin/xxx
-  #track = !git branch --track '$1' 'origin/$1' && git co '$1' 
+  #track = !git branch --track '$1' 'origin/$1' && git co '$1'
   #track = !git branch --track $1 origin/$1
   #track = !git branch --track "$1" && git co '$1'
   #
@@ -290,7 +290,7 @@
   #################################################################################
   #
   # log
-  # 
+  #
   #################################################################################
 
   # log
@@ -514,10 +514,10 @@
   #################################################################################
   sh = show --pretty=full           # show pretty
   #  http://stackoverflow.com/questions/424071/list-all-the-files-for-a-commit-in-git
-  show-files =  diff-tree --no-commit-id --name-only -r 
-  show-changed-files =  diff --no-commit-id --name-only -r 
+  show-files =  diff-tree --no-commit-id --name-only -r
+  show-changed-files =  diff --no-commit-id --name-only -r
 
-  shl =  diff-tree --no-commit-id --name-only -r 
+  shl =  diff-tree --no-commit-id --name-only -r
   ls =  diff-tree --no-commit-id --name-only -r
 
 
@@ -636,12 +636,12 @@
 
 
 [color "diff-highlight"]
-  #oldNormal = red bold inverse 
+  #oldNormal = red bold inverse
   #oldHighlight = red bold inverse 52
-  #newNormal = green bold reverse 
+  #newNormal = green bold reverse
   #newHighlight = green bold reverse 22
 
-  oldNormal = magenta inverse 
+  oldNormal = magenta inverse
   oldHighlight = magenta inverse 52
   newNormal = blue reverse
   newHighlight = blue reverse 22
@@ -775,7 +775,7 @@
 [rebase]
   # automatically stash & restore during rebase
   autostash = true
-  # automatically squas commit made with squash! & fixup! 
+  # automatically squas commit made with squash! & fixup!
   autosquash = true
 
 [rerere]
