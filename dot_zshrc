@@ -4,6 +4,10 @@
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# dotzsh location
+export DOTZSH_HOME=$HOME/.zsh
+
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -104,6 +108,33 @@ fi
 # kusno personal aliases/settings
 #
 
+
+# add completion support
+# see: https://stackoverflow.com/a/67161186
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+
+# report time for execution > n secs
+# see: https://stackoverflow.com/a/46855194
+export REPORTTIME=5
+
+# editor
+export VISUAL=vim
+export EDITOR=$VISUAL
+export PAGER="less"
+# -e -> exit on EOF
+# -F -> quit if one screen
+# -R -> raw control chars
+# -X -> no term init
+export LESS="eFRX"
+
+
+# load custom functions
+for function in $DOTZSH_HOME/functions/*.sh; do
+  source $function
+done
+
+
 # Set personal aliases, overriding those provided by Oh My Zsh libs,
 # plugins, and themes. Aliases can be placed here, though Oh My Zsh
 # users are encouraged to define aliases within a top-level file in
@@ -115,7 +146,7 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias cm="chezmoi"
+
 
 # extra settings
 
@@ -123,7 +154,7 @@ alias cm="chezmoi"
 export PATH=/home/kusno/.local/xonsh-env/xbin/:$PATH
 
 # fzf - fuzzy finder
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # atuin - magical shell history
 eval "$(atuin init zsh)"
@@ -131,4 +162,5 @@ eval "$(atuin init zsh)"
 # enable vi mode
 # from: https://stackoverflow.com/a/58188295
 bindkey -v
+
 
