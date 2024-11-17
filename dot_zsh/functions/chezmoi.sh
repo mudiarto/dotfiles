@@ -26,6 +26,7 @@ alias cmr="chezmoi re-add"
 alias cme="chezmoi edit"
 alias cmea="chezmoi edit --apply"
 alias chcd="chezmoi cd"
+alias cmvi="chezmoi cd && vi . && chezmoi apply && exit"
 
 # Updating target
 alias cmap="chezmoi apply"

@@ -16,6 +16,17 @@ Template dotfiles repository, managed with [chezmoi](https://chezmoi.io/).
 - [oh-my-zsh](https://ohmyz.sh/)
 - pipx: `nix profile install nixpkgs#pipx`
 - tmux
+- nvim
+- atuin
+- tbd: starship
+- tbd: ripgrep
+
+
+
+
+#### power
+- powertop: display power usage. see [here](https://wiki.archlinux.org/title/powertop)
+- tlp: better power management. see [here](https://askubuntu.com/questions/1450723/thinkpad-t480-linux-battery-performance)
 
 ## License
 

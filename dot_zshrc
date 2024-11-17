@@ -108,6 +108,9 @@ fi
 # kusno personal aliases/settings
 #
 
+# enable vi mode
+# from: https://stackoverflow.com/a/58188295
+bindkey -v
 
 # add completion support
 # see: https://stackoverflow.com/a/67161186
@@ -150,6 +153,7 @@ done
 
 # extra settings
 
+
 # add locl bin path
 export PATH=~/.local/bin:$PATH
 
@@ -162,6 +166,5 @@ export PATH=~/.local/xonsh-env/xbin/:$PATH
 # atuin - magical shell history
 eval "$(atuin init zsh)"
 
-# enable vi mode
-# from: https://stackoverflow.com/a/58188295
-bindkey -v
+# starship
+eval "$(starship init zsh)"
