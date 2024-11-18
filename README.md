@@ -27,6 +27,7 @@ Template dotfiles repository, managed with [chezmoi](https://chezmoi.io/).
 #### power
 - powertop: display power usage. see [here](https://wiki.archlinux.org/title/powertop)
 - tlp: better power management. see [here](https://askubuntu.com/questions/1450723/thinkpad-t480-linux-battery-performance)
+- libnotify-bin: for notifications & cron jobs for battery status
 
 ## License
 

@@ -16,6 +16,7 @@ export DOTZSH_HOME=$HOME/.zsh
 # I'm using this because it has time, simple prompt, easy to copy paste, compatible
 # alternative: amuse, crcandy, fino-time, ys
 # ys: https://web.archive.org/web/20211026001810/https://blog.ysmood.org/my-ys-terminal-theme/
+# overridden by starship
 ZSH_THEME="ys"
 
 # Set list of themes to pick from when loading at random
