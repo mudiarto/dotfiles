@@ -169,3 +169,8 @@ eval "$(atuin init zsh)"
 
 # starship
 eval "$(starship init zsh)"
+
+# nix-direnv
+# see: https://github.com/nix-community/nix-direnv
+# install with nix profile install nixpkgs#nix-direnv
+source $HOME/.nix-profile/share/nix-direnv/direnvrc
