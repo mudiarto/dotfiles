@@ -3,19 +3,19 @@
 #
 
 ################################################
-# trap & catch error - suggested by AI
-# Define the error handler function
-function error_handler() {
-    local exit_status=$1
-    local line_number=$2
-    local command=$3
-    echo "Error occurred in file $0 at line $line_number"
-    echo "Command: $command"
-    echo "Exit status: $exit_status"
-}
+# # trap & catch error - suggested by AI
+# # Define the error handler function
+# function error_handler() {
+#     local exit_status=$1
+#     local line_number=$2
+#     local command=$3
+#     echo "Error occurred in file $0 at line $line_number"
+#     echo "Command: $command"
+#     echo "Exit status: $exit_status"
+# }
 
-# Set up the trap
-trap 'error_handler $? $LINENO "$BASH_COMMAND"' ERR
+# # Set up the trap
+# trap 'error_handler $? $LINENO "$BASH_COMMAND"' ERR
 ################################################
 
 # Path to your Oh My Zsh installation.
