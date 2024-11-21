@@ -2,3 +2,10 @@
 install.sh
 LICENSE
 _infra/
+_root
+
+# files
+*.txt
+*.md
+**/*.txt
+**/*.md

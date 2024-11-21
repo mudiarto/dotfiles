@@ -1,5 +1,22 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+#
+
+################################################
+# trap & catch error - suggested by AI
+# Define the error handler function
+function error_handler() {
+    local exit_status=$1
+    local line_number=$2
+    local command=$3
+    echo "Error occurred in file $0 at line $line_number"
+    echo "Command: $command"
+    echo "Exit status: $exit_status"
+}
+
+# Set up the trap
+trap 'error_handler $? $LINENO "$BASH_COMMAND"' ERR
+################################################
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -159,18 +176,9 @@ done
 export PATH=~/.local/bin:$PATH
 
 # add xonsh path - in case I want to use xonsh
-export PATH=~/.local/xonsh-env/xbin/:$PATH
+if [ -d ~/.local/xonsh-env/xbin ]; then
+  export PATH=~/.local/xonsh-env/xbin/:$PATH
+fi
 
 # fzf - fuzzy finder
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# atuin - magical shell history
-eval "$(atuin init zsh)"
-
-# starship
-eval "$(starship init zsh)"
-
-# nix-direnv
-# see: https://github.com/nix-community/nix-direnv
-# install with nix profile install nixpkgs#nix-direnv
-source $HOME/.nix-profile/share/nix-direnv/direnvrc
