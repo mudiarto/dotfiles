@@ -167,6 +167,7 @@ done
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias xx='atool -x'
 
 
 # extra settings
@@ -182,3 +183,9 @@ fi
 
 # fzf - fuzzy finder
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#
+# temporary alias - to be categorized
+#
+
+alias chromium="nix-shell -p ungoogled-chromium"
