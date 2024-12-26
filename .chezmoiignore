@@ -9,3 +9,4 @@ _root
 *.md
 **/*.txt
 **/*.md
+.stfolder
