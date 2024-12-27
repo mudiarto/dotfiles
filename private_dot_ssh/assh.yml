@@ -1,7 +1,22 @@
 hosts:
 
+  github.com:
+    Hostname: github.com
+    User: git
+    ProxyCommand: /usr/bin/nc %h %p
+
   hegemon:
-    # ssh homer ->  ssh 1.2.3.4 -p 2222 -u robert
     Hostname: hegemon
     User: kusno
     ForwardAgent: yes
+
+  ds_kusno:
+    Hostname: ds
+    Port: 2233
+    User: kusno_adm
+    ForwardAgent: yes
+
+  ds_root:
+    Inherits:
+      ds_kusno
+    User: admin

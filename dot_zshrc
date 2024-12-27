@@ -189,3 +189,8 @@ fi
 #
 
 alias chromium="nix-shell -p ungoogled-chromium"
+
+# standard go installation
+# see: https://go.dev/doc/install
+# use this to manage multiple go install: https://go.dev/doc/manage-install
+export PATH=$PATH:~/go/bin:/usr/local/go/bin
